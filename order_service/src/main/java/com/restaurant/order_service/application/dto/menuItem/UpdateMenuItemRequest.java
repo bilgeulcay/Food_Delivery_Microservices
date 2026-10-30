@@ -15,4 +15,6 @@ public class UpdateMenuItemRequest {
     private BigDecimal price;
 
     private boolean available;
+
+    private int stockQuantity;
 }

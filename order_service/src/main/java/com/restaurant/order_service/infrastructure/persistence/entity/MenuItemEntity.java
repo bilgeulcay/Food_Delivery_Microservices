@@ -33,5 +33,6 @@ public class MenuItemEntity {
 
     private boolean available;
 
-
+    @Column(name = "stock_quantity", nullable = false)
+    private int stockQuantity;
 }

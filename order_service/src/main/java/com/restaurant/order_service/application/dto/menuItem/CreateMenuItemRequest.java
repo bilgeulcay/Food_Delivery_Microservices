@@ -17,4 +17,6 @@ public class CreateMenuItemRequest {
     private BigDecimal price;
 
     private boolean available;
+
+    private int stockQuantity;
 }

@@ -35,7 +35,8 @@ public class MenuItemRepositoryAdapter
                 restaurantEntity,
                 menuItem.getName(),
                 menuItem.getPrice(),
-                menuItem.isAvailable()
+                menuItem.isAvailable(),
+                menuItem.getStockQuantity()
         );
 
         MenuItemEntity saved =
@@ -90,7 +91,8 @@ public class MenuItemRepositoryAdapter
                 restaurant,
                 entity.getName(),
                 entity.getPrice(),
-                entity.isAvailable()
+                entity.isAvailable(),
+                entity.getStockQuantity()
         );
     }
 }

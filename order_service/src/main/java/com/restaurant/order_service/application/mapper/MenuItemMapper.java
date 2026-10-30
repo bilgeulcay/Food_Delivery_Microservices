@@ -21,7 +21,8 @@ public class MenuItemMapper {
                 restaurant,
                 request.getName(),
                 request.getPrice(),
-                request.isAvailable()
+                request.isAvailable(),
+                request.getStockQuantity()
         );
     }
 
@@ -31,7 +32,8 @@ public class MenuItemMapper {
                 menuItem.getRestaurant().getId(),
                 menuItem.getName(),
                 menuItem.getPrice(),
-                menuItem.isAvailable()
+                menuItem.isAvailable(),
+                menuItem.getStockQuantity()
         );
     }
 
@@ -42,5 +44,6 @@ public class MenuItemMapper {
         menuItem.setName(request.getName());
         menuItem.setPrice(request.getPrice());
         menuItem.setAvailable(request.isAvailable());
+        menuItem.setStockQuantity(request.getStockQuantity());
     }
 }

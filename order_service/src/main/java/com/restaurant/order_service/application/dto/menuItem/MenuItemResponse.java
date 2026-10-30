@@ -19,4 +19,6 @@ public class MenuItemResponse {
     private BigDecimal price;
 
     private boolean available;
+
+    private int stockQuantity;
 }

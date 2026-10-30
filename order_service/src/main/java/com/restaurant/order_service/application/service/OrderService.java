@@ -84,6 +84,19 @@ public class OrderService {
                 );
             }
 
+            if (menuItem.getStockQuantity() < item.getQuantity()) {
+                throw new IllegalArgumentException(
+                        "Insufficient stock for menu item: "
+                                + menuItem.getName()
+                );
+            }
+            menuItem.setStockQuantity(
+                    menuItem.getStockQuantity()
+                            - item.getQuantity()
+            );
+
+            menuItemRepository.save(menuItem);
+
             item.setPriceAtOrder(menuItem.getPrice());
 
             BigDecimal itemTotal = menuItem.getPrice()

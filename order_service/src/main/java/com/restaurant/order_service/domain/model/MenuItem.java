@@ -27,5 +27,7 @@ public class MenuItem {
 
     private boolean available;
 
+    private int stockQuantity;
+
 
 }
