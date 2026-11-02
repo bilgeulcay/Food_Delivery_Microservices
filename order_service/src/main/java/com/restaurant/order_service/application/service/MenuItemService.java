@@ -93,15 +93,14 @@ public class MenuItemService {
                                         "Menu item not found"
                                 ));
 
-        menuItem.setName(request.getName());
-        menuItem.setPrice(request.getPrice());
-        menuItem.setAvailable(request.isAvailable());
+        menuItemMapper.updateDomain(menuItem, request);
 
         MenuItem updated =
                 menuItemRepository.save(menuItem);
 
         return menuItemMapper.toResponse(updated);
     }
+
 
     public void delete(Long id) {
 

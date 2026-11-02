@@ -12,6 +12,8 @@ import com.restaurant.order_service.domain.repository.OrderRepository;
 import com.restaurant.order_service.domain.repository.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -26,6 +28,7 @@ public class OrderService {
     private final MenuItemRepository menuItemRepository;
     private final OrderMapper orderMapper;
 
+    @Transactional
     public OrderResponse create(CreateOrderRequest request) {
 
         if (request.getCustomerId() == null
