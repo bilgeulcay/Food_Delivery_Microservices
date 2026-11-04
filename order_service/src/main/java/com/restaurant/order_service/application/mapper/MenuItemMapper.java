@@ -4,8 +4,6 @@ import com.restaurant.order_service.application.dto.menuItem.MenuItemResponse;
 import com.restaurant.order_service.application.dto.menuItem.UpdateMenuItemRequest;
 import com.restaurant.order_service.domain.model.MenuItem;
 import com.restaurant.order_service.domain.model.Restaurant;
-import com.restaurant.order_service.infrastructure.persistence.entity.MenuItemEntity;
-import com.restaurant.order_service.infrastructure.persistence.entity.RestaurantEntity;
 import org.springframework.stereotype.Component;
 
 

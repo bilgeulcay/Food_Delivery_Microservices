@@ -10,9 +10,9 @@ import java.util.concurrent.CountDownLatch;
 
 public class OrderConcurrencyTest {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args)  {
 
-        HttpClient client = HttpClient.newHttpClient();
+        try (HttpClient client = HttpClient.newHttpClient()) {
 
         String orderA = """
                 {
@@ -62,6 +62,11 @@ public class OrderConcurrencyTest {
 
         System.out.println("Customer B: " + responseB.statusCode());
         System.out.println(responseB.body());
+
+
+
+
+    }
     }
 
     private static HttpRequest createRequest(String json) {
