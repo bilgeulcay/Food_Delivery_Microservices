@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.dao.OptimisticLockingFailureException;
+import java.util.Objects;
+
 @Component
 @RequiredArgsConstructor
 public class MenuItemRepositoryAdapter
@@ -21,26 +24,46 @@ public class MenuItemRepositoryAdapter
     @Override
     public MenuItem save(MenuItem menuItem) {
 
-        Restaurant restaurant = menuItem.getRestaurant();
+        MenuItemEntity entity;
 
-        RestaurantEntity restaurantEntity = new RestaurantEntity(
-                restaurant.getId(),
-                restaurant.getName(),
-                restaurant.getAddress(),
-                restaurant.isOpen()
-        );
+        if (menuItem.getId() == null) {
 
-        MenuItemEntity entity = new MenuItemEntity(
-                menuItem.getId(),
-                restaurantEntity,
-                menuItem.getName(),
-                menuItem.getPrice(),
-                menuItem.isAvailable(),
-                menuItem.getStockQuantity()
-        );
+            // Yeni ürün oluşturuluyor.
+            entity = new MenuItemEntity();
 
-        MenuItemEntity saved =
-                jpaMenuItemRepository.save(entity);
+            Restaurant restaurant = menuItem.getRestaurant();
+
+            RestaurantEntity restaurantEntity = new RestaurantEntity(
+                    restaurant.getId(),
+                    restaurant.getName(),
+                    restaurant.getAddress(),
+                    restaurant.isOpen()
+            );
+
+            entity.setRestaurant(restaurantEntity);
+
+        } else {
+
+            // Mevcut ürün veritabanından bulunuyor.
+            entity = jpaMenuItemRepository.findById(menuItem.getId())
+                    .orElseThrow(() ->
+                            new IllegalArgumentException("Menu item not found")
+                    );
+
+            // Domain'deki version ile DB'deki version karşılaştırılıyor.
+            if (!Objects.equals(entity.getVersion(), menuItem.getVersion())) {
+                throw new OptimisticLockingFailureException(
+                        "Menu item was modified by another transaction"
+                );
+            }
+        }
+
+        entity.setName(menuItem.getName());
+        entity.setPrice(menuItem.getPrice());
+        entity.setAvailable(menuItem.isAvailable());
+        entity.setStockQuantity(menuItem.getStockQuantity());
+
+        MenuItemEntity saved = jpaMenuItemRepository.save(entity);
 
         return toDomain(saved);
     }
@@ -92,7 +115,8 @@ public class MenuItemRepositoryAdapter
                 entity.getName(),
                 entity.getPrice(),
                 entity.isAvailable(),
-                entity.getStockQuantity()
+                entity.getStockQuantity(),
+                entity.getVersion()
         );
     }
 }

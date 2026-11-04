@@ -1,8 +1,8 @@
 package com.restaurant.order_service.infrastructure.persistence.entity;
 
-import com.restaurant.order_service.domain.model.Restaurant;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import jakarta.persistence.Version;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,4 +35,7 @@ public class MenuItemEntity {
 
     @Column(name = "stock_quantity", nullable = false)
     private int stockQuantity;
+
+    @Version
+    private Long version;
 }

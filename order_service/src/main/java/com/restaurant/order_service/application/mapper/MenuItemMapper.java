@@ -22,7 +22,8 @@ public class MenuItemMapper {
                 request.getName(),
                 request.getPrice(),
                 request.isAvailable(),
-                request.getStockQuantity()
+                request.getStockQuantity(),
+                null
         );
     }
 

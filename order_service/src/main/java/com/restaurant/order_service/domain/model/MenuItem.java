@@ -29,5 +29,7 @@ public class MenuItem {
 
     private int stockQuantity;
 
+    private Long version;
+
 
 }
